@@ -5,8 +5,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# --- API Keys ---
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+# --- OpenRouter LLM ---
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
+LLM_BASE_URL = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+LLM_MODEL = os.getenv("OPENROUTER_MODEL", "openai/gpt-4o-mini")
+
+
+def get_llm_client():
+    """Create an OpenAI-compatible client pointed at OpenRouter."""
+    if not OPENROUTER_API_KEY:
+        return None
+
+    from openai import OpenAI
+
+    return OpenAI(api_key=OPENROUTER_API_KEY, base_url=LLM_BASE_URL)
 
 # --- Qdrant ---
 QDRANT_HOST = "localhost"
