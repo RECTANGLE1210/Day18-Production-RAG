@@ -43,7 +43,7 @@ def _chat_completion(system_prompt: str, user_prompt: str, max_tokens: int) -> s
         content = response.choices[0].message.content
         return content.strip() if content else None
     except Exception as e:
-        print(f"  ⚠️  OpenRouter enrichment failed: {e}")
+        print(f"  OpenRouter enrichment failed: {e}")
         return None
 
 
@@ -241,8 +241,11 @@ def enrich_chunks(
         if use_combined:
             result = _enrich_single_call(text, source)
             summary = result.get("summary", "")
+            summary = summary if isinstance(summary, str) else ""
             questions = result.get("questions", [])
+            questions = questions if isinstance(questions, list) else []
             context_line = result.get("context", "")
+            context_line = context_line if isinstance(context_line, str) else ""
             enriched_text = f"{context_line}\n\n{text}" if context_line else text
             auto_meta = _sanitize_metadata(result.get("metadata", {}))
         else:

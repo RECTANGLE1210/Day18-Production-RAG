@@ -144,7 +144,7 @@ def evaluate_ragas(questions: list[str], answers: list[str],
         }
         return {**aggregate, "per_question": per_question}
     except Exception as e:
-        print(f"  ⚠️  RAGAS evaluation failed: {e}")
+        print(f"  RAGAS evaluation failed: {e}")
         return _zero_evaluation()
 
 
